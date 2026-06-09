@@ -1,0 +1,41 @@
+---
+title: "Merge Duplicate Ideas"
+description: "Admins can consolidate duplicate submissions so votes and followers aren't fragmented across similar requests."
+icon: "code-merge"
+---
+
+Duplicate ideas split votes and dilute demand signals. The merge tool consolidates them so the PM sees the true weight of a request.
+
+## Merge flow
+
+<Steps>
+  <Step title="Identify duplicates">
+    Admin spots two similar ideas in the review queue, or locates them using the Merge tool's search.
+  </Step>
+  <Step title="Select source and target">
+    Admin designates one idea as the **Source** (the one to be absorbed) and one as the **Target** (the one to keep).
+  </Step>
+  <Step title="Votes and followers transfer">
+    The system moves all votes and followers from the Source idea to the Target idea automatically.
+  </Step>
+  <Step title="Source is marked Merged">
+    The source idea's status becomes `Merged` and displays a redirect link pointing to the Target.
+  </Step>
+  <Step title="Submitter is notified">
+    The original submitter of the source idea receives a notification with the redirect link to the surviving idea.
+  </Step>
+</Steps>
+
+<Tip>
+  After a merge, the Target idea's vote count increases immediately. This can trigger re-ranking on the roadmap priority view.
+</Tip>
+
+## What transfers vs. what doesn't
+
+| Data | Transfers to target? |
+|---|---|
+| Votes | Yes |
+| Followers | Yes |
+| Internal notes | No — stays on source for audit |
+| Submitter identity | No — source retains its own submitter |
+| Comments | No — stays on source |

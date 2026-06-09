@@ -1,0 +1,35 @@
+---
+title: "Roadmap & Content"
+description: "Beyond ideas, the platform manages roadmap items, announcements, changelog entries, and comments — each with their own status flows."
+icon: "map"
+---
+
+## Entity status flows
+
+| Entity | Status flow |
+|---|---|
+| Roadmap item (normal) | `Planned` → `In Progress` → `Shipped` *(auto-creates changelog entry)* |
+| Roadmap item (halted) | `In Progress` → `Paused` → `In Progress` or `Cancelled` |
+| Announcement | `Draft` → `Scheduled` → `Published` → `Archived` |
+| Changelog entry | `Draft` → `Published` → `Archived` |
+| Comment | `Visible` → `Flagged` → `Hidden` → `Deleted` |
+
+## Roadmap items
+
+When a roadmap item reaches `Shipped`, the platform **automatically creates a changelog entry** pre-populated with the roadmap item's details. The PM can review and publish it directly.
+
+<Tip>
+  Shipping a roadmap item triggers the `roadmap_item.status_changed` webhook event and notifies all idea voters via email.
+</Tip>
+
+## Announcements
+
+Announcements support scheduled publishing — draft content in advance, set a publish time, and the platform handles distribution automatically.
+
+## Changelog entries
+
+Changelog entries can be created manually or auto-generated from shipped roadmap items. Once published, they are visible on the public changelog and trigger the `changelog.published` webhook.
+
+## Comments
+
+The comment moderation flow (`Visible → Flagged → Hidden → Deleted`) ensures admins can act on inappropriate content without losing the audit trail.

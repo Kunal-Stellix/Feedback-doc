@@ -1,0 +1,36 @@
+---
+title: "vs. Basic Forms"
+description: "How this platform compares to a standard feedback form or survey tool."
+icon: "table-columns"
+---
+
+A basic form collects feedback. This platform closes the loop on it.
+
+## Feature comparison
+
+| Feature | Basic form | Feedback Management |
+|---|---|---|
+| Duplicate detection | None | Real-time fuzzy match on submission |
+| Voting & ranking | None | One vote per user; weighted scoring in Phase 2 |
+| Status lifecycle | None | Pending → Planned → In Progress → Shipped |
+| Public roadmap | None | Kanban-style public/private roadmap board |
+| Changelog & notifications | None | Auto-notify all voters when feature ships |
+| Embeddable widget | None | JS snippet + iframe + React component |
+| API-first | None | Full FastAPI + webhooks from day one |
+
+## Why it matters
+
+<CardGroup cols={2}>
+  <Card title="Real-time duplicate detection" icon="copy">
+    Prevents vote fragmentation at the point of submission, so demand signals remain clean before any admin intervention.
+  </Card>
+  <Card title="One vote per user" icon="check">
+    Prevents stuffing. Weighted scoring in Phase 2 will factor in customer attributes like MRR for more nuanced prioritization.
+  </Card>
+  <Card title="Public roadmap board" icon="map">
+    Customers can see what's planned, in progress, and shipped — reducing support load from "is this being built?" enquiries.
+  </Card>
+  <Card title="Auto-notifications" icon="bell">
+    Closes the trust loop automatically. Customers who submitted an idea hear back when it ships — without any manual PM effort.
+  </Card>
+</CardGroup>

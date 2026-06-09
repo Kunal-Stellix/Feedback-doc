@@ -1,0 +1,38 @@
+---
+title: "Status System"
+description: "Each status controls visibility, notifications, and what action a team member should take next."
+icon: "list-check"
+---
+
+## Full status reference
+
+| Status | Meaning | Public? | Notifies |
+|---|---|---|---|
+| `Pending` | Submitted; awaiting admin review | No | — |
+| `Under Review` | Team is evaluating it | Yes | Submitter only |
+| `Planned` | Officially on roadmap | Yes | All followers |
+| `In Progress` | Being built | Yes | All followers |
+| `Shipped` | Feature is live | Yes | All voters |
+| `Declined` | Will not be built (reason shown) | Yes | Submitter only |
+| `Archived` | Hidden, preserved internally | No | — |
+| `Merged` | Absorbed into another idea | No | Submitter + voters (redirect) |
+
+## Key distinctions
+
+<AccordionGroup>
+  <Accordion title="Followers vs. voters">
+    **Followers** are users who have opted in to track an idea — they receive notifications at `Planned` and `In Progress` stages.
+
+    **Voters** are users who have upvoted an idea — they receive the final `Shipped` notification when the feature goes live.
+
+    A user can be both a follower and a voter.
+  </Accordion>
+  <Accordion title="Declined vs. Archived">
+    **Declined** is a public status — the reason is visible to submitters so they understand the decision.
+
+    **Archived** is internal only — the idea is preserved for audit purposes but hidden from public view with no public explanation shown.
+  </Accordion>
+  <Accordion title="Merged behaviour">
+    When an idea is merged, all votes and followers transfer from the source idea to the target. The source idea displays a redirect link, and both the submitter and original voters are notified.
+  </Accordion>
+</AccordionGroup>
