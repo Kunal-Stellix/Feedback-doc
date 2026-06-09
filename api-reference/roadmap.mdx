@@ -1,0 +1,122 @@
+---
+title: "Roadmap Items"
+description: "The public roadmap shows what you're working on, what's planned, and what has shipped."
+icon: "map"
+---
+
+## Get public roadmap
+
+<api-endpoint method="GET" path="/roadmap" />
+
+Returns roadmap items grouped into three columns: `planned`, `in_progress`, and `shipped`. This is a public endpoint.
+
+**Response** `200 OK`
+
+```json
+{
+  "planned": [
+    {
+      "id": "roadmap-uuid...",
+      "title": "Dark Mode",
+      "description": "Full dark mode across all pages.",
+      "status": "planned",
+      "linked_ideas": [
+        { "id": "idea-uuid...", "title": "Dark Mode Support", "vote_count": 42, "status": "pending" }
+      ],
+      "total_votes": 42,
+      "sort_order": 1,
+      "created_at": "2026-06-01T10:00:00Z"
+    }
+  ],
+  "in_progress": [],
+  "shipped": []
+}
+```
+
+---
+
+## Get a single roadmap item
+
+<api-endpoint method="GET" path="/admin/roadmap/{item_id}" />
+
+Retrieves full details for one specific roadmap item, including its status, linked ideas, and vote totals.
+
+**Response** `200 OK`
+
+```json
+{
+  "id": "roadmap-uuid...",
+  "title": "Dark Mode",
+  "description": "Full dark mode across all pages.",
+  "status": "planned",
+  "linked_ideas": [
+    { "id": "idea-uuid...", "title": "Dark Mode Support", "vote_count": 42, "status": "pending" }
+  ],
+  "total_votes": 42,
+  "sort_order": 1,
+  "created_at": "2026-06-01T10:00:00Z"
+}
+```
+
+---
+
+## Create a roadmap item
+
+<api-endpoint method="POST" path="/admin/roadmap" />
+
+Adds a new item to the roadmap. Optionally links existing ideas to it.
+
+**Request body**
+
+```json
+{
+  "title": "Dark Mode",
+  "description": "Full dark mode across all pages.",
+  "status": "planned",
+  "idea_ids": ["idea-uuid..."]
+}
+```
+
+**Response** `201 Created` — returns the full RoadmapItemResponse.
+
+---
+
+## Update a roadmap item
+
+<api-endpoint method="PATCH" path="/admin/roadmap/{item_id}" />
+
+Edits an existing roadmap item. Updates the title, description, status, or linked ideas. Only fields you send are updated (partial update).
+
+**Request body**
+
+```json
+{
+  "title": "Dark Mode (Updated)",
+  "status": "in_progress",
+  "idea_ids": ["idea-uuid...", "another-idea-uuid..."]
+}
+```
+
+**Response** `200 OK` — returns the updated RoadmapItemResponse.
+
+---
+
+## Delete a roadmap item
+
+<api-endpoint method="DELETE" path="/admin/roadmap/{item_id}" />
+
+Removes a roadmap item permanently, including its links to ideas.
+
+**Response** `200 OK`
+
+```json
+{ "deleted": true }
+```
+
+## Roadmap statuses
+
+| Status | Description |
+|---|---|
+| `planned` | Accepted and scheduled for development |
+| `in_progress` | Currently being built |
+| `shipped` | Released to production |

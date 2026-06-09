@@ -1,0 +1,99 @@
+---
+title: "Webhooks & Events"
+description: "Webhooks push real-time events to your backend so you don't have to poll."
+icon: "webhook"
+---
+
+# Webhooks
+
+Webhooks allow your application to receive real-time notifications whenever important events occur in the Product Feedback Platform.
+
+## Supported events
+
+| Event | When it fires |
+|---|---|
+| `idea.created` | A new idea is submitted |
+| `idea.status_changed` | An idea moves to a new stage (e.g. `pending` → `shipped`) |
+| `idea.merged` | Two or more ideas are merged together |
+| `comment.created` | A new comment is posted on an idea |
+| `changelog.published` | A new changelog entry goes live |
+
+## List webhooks
+
+<api-endpoint method="GET" path="/admin/webhooks" />
+
+Returns all configured webhook endpoints. The `secret` field is hidden on read.
+
+### Response `200 OK`
+
+```json
+[
+  {
+    "id": "wh-uuid...",
+    "url": "https://yourapp.com/webhooks/feedback",
+    "events": ["idea.created", "comment.created"],
+    "is_active": true,
+    "secret": null,
+    "created_at": "2026-06-01T10:00:00Z"
+  }
+]
+```
+
+---
+
+## Create a webhook
+
+<api-endpoint method="POST" path="/admin/webhooks" />
+
+Registers a new URL to receive events.
+
+### Request body
+
+```json
+{
+  "url": "https://yourapp.com/webhooks/feedback",
+  "events": ["idea.created", "idea.status_changed"],
+  "secret": "my_webhook_secret_123"
+}
+```
+
+### Response `201 Created`
+
+```json
+{
+  "id": "wh-uuid...",
+  "url": "https://yourapp.com/webhooks/feedback",
+  "events": ["idea.created", "idea.status_changed"],
+  "is_active": true,
+  "secret": "my_webhook_secret_123",
+  "created_at": "2026-06-08T12:00:00Z"
+}
+```
+
+### Example payload
+
+```json
+{
+  "event": "idea.created",
+  "timestamp": "2026-06-08T12:30:00Z",
+  "data": {
+    "id": "idea-uuid...",
+    "title": "Dark Mode Support",
+    "status": "pending"
+  }
+}
+```
+
+---
+
+## Delete a webhook
+
+<api-endpoint method="DELETE" path="/admin/webhooks/{webhook_id}" />
+
+Removes the endpoint permanently.
+
+### Response `200 OK`
+
+```json
+{ "deleted": true }
+```

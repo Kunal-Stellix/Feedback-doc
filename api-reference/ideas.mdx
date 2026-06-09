@@ -1,0 +1,101 @@
+---
+title: "Ideas (Feature Requests)"
+description: "Ideas are the core of the platform — feature requests submitted by your community."
+icon: "lightbulb"
+---
+
+## List all ideas
+
+<api-endpoint method="GET" path="/ideas" />
+
+Fetches a paginated list of ideas with sorting and filtering. Returns ideas visible to the public (or the current user).
+
+**Query parameters**
+
+| Parameter | Type | Description |
+|---|---|---|
+| `sort` | string | `votes`, `newest`, `updated`, or `comments` |
+| `status` | string | Filter by idea status |
+| `category_id` | string | Filter by category UUID |
+| `q` | string | Search keyword |
+| `page` | integer | Page number (default: 1) |
+| `page_size` | integer | Results per page (default: 20) |
+
+**Response** `200 OK`
+
+```json
+{
+  "items": [
+    {
+      "id": "idea-uuid...",
+      "title": "Dark Mode Support",
+      "description": "Please add a dark mode for night usage.",
+      "status": "pending",
+      "author": {
+        "id": "user-uuid...",
+        "name": "Jane Doe",
+        "avatar_url": null
+      },
+      "category": {
+        "id": "cat-uuid...",
+        "name": "UI / UX",
+        "slug": "ui-ux",
+        "color": "#3b82f6"
+      },
+      "vote_count": 42,
+      "comment_count": 7,
+      "voted_by_me": false,
+      "created_at": "2026-06-01T12:00:00Z",
+      "updated_at": "2026-06-05T14:30:00Z"
+    }
+  ],
+  "total": 156,
+  "page": 1,
+  "page_size": 20,
+  "has_next": true
+}
+```
+
+---
+
+## Search ideas
+
+<api-endpoint method="GET" path="/ideas/search" />
+
+Quick search across idea titles and descriptions. Requires at least 2 characters in the `q` parameter.
+
+```http
+GET /ideas/search?q=dark mode
+```
+
+**Response** `200 OK` — array of IdeaResponse objects.
+
+---
+
+## Get a single idea
+
+<api-endpoint method="GET" path="/ideas/{idea_id}" />
+
+Retrieves full details for one specific idea, including its author, category, vote count, and whether the logged-in user has already voted.
+
+**Response** `200 OK` — same shape as an item in the List response.
+
+---
+
+## Submit a new idea
+
+<api-endpoint method="POST" path="/ideas" />
+
+Creates a new feature request. The author is set to the logged-in user. New ideas may enter a moderation queue depending on your portal settings.
+
+**Request body**
+
+```json
+{
+  "title": "Dark Mode Support",
+  "description": "Please add a dark mode for night usage.",
+  "category_id": "cat-uuid..."
+}
+```
+
+**Response** `201 Created` — returns the full IdeaResponse.

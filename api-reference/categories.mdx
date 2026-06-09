@@ -1,0 +1,28 @@
+---
+title: "Categories"
+description: "Categories keep ideas organized — for example, Bug, Feature, or UI/UX."
+icon: "tag"
+---
+
+## List all categories
+
+<api-endpoint method="GET" path="/categories" />
+
+Returns every category defined for your portal. This is a public endpoint — no authentication required.
+
+**Response** `200 OK`
+
+```json
+[
+  {
+    "id": "cat-uuid...",
+    "name": "UI / UX",
+    "slug": "ui-ux",
+    "color": "#3b82f6"
+  }
+]
+```
+
+<Note>
+  Categories are managed by admins in the portal settings. Use the `id` field when submitting or filtering ideas by category.
+</Note>

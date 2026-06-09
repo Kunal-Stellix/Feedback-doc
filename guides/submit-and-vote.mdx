@@ -1,0 +1,57 @@
+---
+title: "Submit & Vote on Ideas"
+description: "How ideas enter the system — via the portal or embedded widget — and what happens next depending on moderation settings."
+icon: "circle-plus"
+---
+
+Users can submit ideas through the public portal or any embedded widget placed on your product. Here's how the process works.
+
+## Submission flow
+
+<Steps>
+  <Step title="Open the submission form">
+    User clicks **Submit Idea** on the portal or an embedded widget.
+  </Step>
+  <Step title="Real-time duplicate check">
+    As the user types, the system surfaces similar existing ideas — advisory only, not blocking. The user can still proceed even if a match appears.
+  </Step>
+  <Step title="Add details and submit">
+    User fills in the title, description, selects a category, and optionally adds tags. Then clicks **Submit**.
+  </Step>
+  <Step title="Moderation routing">
+    - If moderation is set to **auto-approve** → the idea goes live immediately and is visible to all users.
+    - If moderation is set to **require-review** → the idea enters the `Pending` queue for admin review before going public.
+  </Step>
+  <Step title="Confirmation">
+    The submitter receives a confirmation email and is automatically followed on their own idea so they receive all future status notifications.
+  </Step>
+</Steps>
+
+## Moderation modes
+
+| Mode | What happens | Best for |
+|---|---|---|
+| **Auto-approve** | Idea is immediately public and voteable | Open communities, internal teams |
+| **Require-review** | Idea enters `Pending` queue; admin must approve before it goes live | Public-facing portals, regulated products |
+
+<Warning>
+  In **auto-approve** mode, spam and low-quality ideas can surface immediately. Consider enabling keyword filters or restricting submissions to authenticated users.
+</Warning>
+
+## After submission: what users can do
+
+<CardGroup cols={3}>
+  <Card title="Upvote" icon="thumbs-up">
+    Users get one vote per idea. Clicking the vote button again removes the vote. Vote counts directly influence ranking on the ideas page.
+  </Card>
+  <Card title="Comment" icon="message-circle">
+    Users can leave comments and reply in threads. Comments appear in chronological order and support markdown formatting.
+  </Card>
+  <Card title="Follow" icon="bell">
+    Users can follow an idea to receive status-change notifications — even if they didn't vote. This is how interested observers stay in the loop.
+  </Card>
+</CardGroup>
+
+<Tip>
+  Voting and following are separate actions. A user can follow an idea without voting (e.g., a PM tracking demand) or vote without following (they'll still be notified when it ships).
+</Tip>

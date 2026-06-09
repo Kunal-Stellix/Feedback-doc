@@ -1,0 +1,77 @@
+---
+title: "API Key Management"
+description: "Generate and manage API keys for programmatic server-to-server access."
+icon: "key"
+---
+
+<Warning>
+  API keys grant admin-level access. Store them securely and never expose them in client-side code.
+</Warning>
+
+## List API keys
+
+<api-endpoint method="GET" path="/admin/apikeys" />
+
+Shows all keys. For security, only the first few characters (`key_prefix`) are returned — the full secret is never shown again after creation.
+
+**Response** `200 OK`
+
+```json
+[
+  {
+    "id": "key-uuid...",
+    "name": "Zapier Integration",
+    "key_prefix": "ak_7f3a...",
+    "plaintext_key": null,
+    "last_used_at": "2026-06-07T14:00:00Z",
+    "created_at": "2026-06-01T10:00:00Z"
+  }
+]
+```
+
+---
+
+## Create an API key
+
+<api-endpoint method="POST" path="/admin/apikeys" />
+
+Generates a cryptographically secure key. The full `plaintext_key` is returned **only once** in this response — store it immediately.
+
+**Request body**
+
+```json
+{
+  "name": "Zapier Integration"
+}
+```
+
+**Response** `201 Created`
+
+```json
+{
+  "id": "key-uuid...",
+  "name": "Zapier Integration",
+  "key_prefix": "ak_7f3a...",
+  "plaintext_key": "ak_7f3a...xxxxxxxx",
+  "last_used_at": null,
+  "created_at": "2026-06-08T12:00:00Z"
+}
+```
+
+<Warning>
+  After creation, the full `plaintext_key` cannot be retrieved again. Copy it immediately and store it in a secure secrets manager.
+</Warning>
+
+---
+
+## Delete an API key
+
+<api-endpoint method="DELETE" path="/admin/apikeys/{key_id}" />
+
+Permanently revokes the key. Any integrations using it will immediately lose access.
+
+**Response** `200 OK`
+
+```json
+{ "deleted": true }
+```

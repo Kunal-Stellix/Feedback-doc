@@ -1,0 +1,54 @@
+---
+title: "Why Not Just a Form?"
+description: "How this platform compares to a standard feedback form or survey tool — and why closing the loop matters."
+icon: "table-columns"
+---
+
+A basic form collects feedback. This platform closes the loop on it.
+
+## Feature comparison
+
+| Feature | Basic form | Feedback Management |
+|---|---|---|
+| Duplicate detection | None | Real-time fuzzy match on submission |
+| Voting & ranking | None | One vote per user; weighted scoring coming soon |
+| Status lifecycle | None | Pending → Planned → In Progress → Shipped |
+| Public roadmap | None | Kanban-style public/private roadmap board |
+| Changelog & notifications | None | Auto-notify all voters when feature ships |
+| Embeddable widget | None | JS snippet + iframe + React component |
+| API-first | None | Full FastAPI + webhooks from day one |
+
+## The difference in practice
+
+<AccordionGroup>
+  <Accordion title="Without Feedback Management">
+    1. Customer fills out a form on your site.\
+    2. The response goes to a spreadsheet that nobody reads.\
+    3. The customer never hears back.\
+    4. Trust erodes. Off they go to a competitor.
+  </Accordion>
+  <Accordion title="With Feedback Management">
+    1. Customer submits an idea — duplicate detection warns them if it already exists.\
+    2. Other users upvote it, surfacing real demand.\
+    3. PM merges duplicates, promotes to roadmap, marks it **In Progress**.\
+    4. Feature ships — every voter gets an automatic notification.\
+    5. Customer feels heard. Trust grows.
+  </Accordion>
+</AccordionGroup>
+
+## Key differentiators
+
+<CardGroup cols={2}>
+  <Card title="Real-time duplicate detection" icon="copy">
+    Prevents vote fragmentation at the point of submission, so demand signals stay clean before any admin intervention.
+  </Card>
+  <Card title="One vote per user" icon="check">
+    Prevents stuffing. Weighted scoring coming soon will factor in customer attributes like MRR for more nuanced prioritization.
+  </Card>
+  <Card title="Public roadmap board" icon="map">
+    Customers see what's planned, in progress, and shipped — reducing "is this being built?" support tickets.
+  </Card>
+  <Card title="Auto-notifications" icon="bell">
+    Closes the trust loop automatically. Customers who submitted an idea hear back when it ships — zero manual PM effort.
+  </Card>
+</CardGroup>

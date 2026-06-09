@@ -6,6 +6,13 @@ icon: "lock"
 
 Not all feedback comes through the portal. Support agents regularly hear requests on calls, in tickets, or over email. Private ideas let that signal reach the PM without exposing internal context publicly.
 
+## When to use private ideas
+
+- Logging feature requests heard on sales or support calls
+- Capturing feedback from high-value customers (track via MRR field)
+- Preserving verbatim customer quotes for PM review
+- Internally tracking requests before deciding whether to surface them publicly
+
 ## Private feedback flow
 
 <Steps>
@@ -27,9 +34,16 @@ Not all feedback comes through the portal. Support agents regularly hear request
   Private ideas never affect the public-facing vote count. They exist to give PMs qualitative context (customer name, MRR, direct quotes) without distorting quantitative demand signals.
 </Note>
 
-## Use cases
+## Private vs. public ideas
 
-- Logging feature requests heard on sales or support calls
-- Capturing feedback from high-value customers (track via MRR field)
-- Preserving verbatim customer quotes for PM review
-- Internally tracking requests before deciding whether to surface them publicly
+| | Public idea | Private idea |
+|---|---|---|
+| Visible to | Everyone | Internal team only |
+| Voteable by | All authenticated users | No — votes are not collected |
+| Appears on | Public ideas board | Admin review queue only |
+| Affects ranking | Yes — votes count | No — invisible to algorithm |
+| Can be merged | Into any idea | Into public ideas (votes transfer internally) |
+
+<Tip>
+  Use private ideas as a staging area. When you're ready to surface a request publicly, you can convert it to a public idea — or merge it into an existing public idea to consolidate the signal.
+</Tip>

@@ -1,0 +1,123 @@
+---
+title: "Admin & Moderation"
+description: "Admin and moderator endpoints for managing ideas, users, and platform configuration."
+icon: "shield"
+---
+
+<Warning>
+  All endpoints in this section require the `admin` or `moderator` role. Standard users will receive a `403 Forbidden` response.
+</Warning>
+
+## Admin dashboard stats
+
+<api-endpoint method="GET" path="/admin/dashboard" />
+
+Returns a high-level snapshot of portal activity: pending ideas count, total users, votes, and a recent activity feed.
+
+**Response** `200 OK`
+
+```json
+{
+  "pending_ideas_count": 14,
+  "top_ideas": [
+    { "id": "...", "title": "Dark Mode", "vote_count": 120, "status": "pending" }
+  ],
+  "recent_activity": [
+    { "type": "idea_created", "message": "New idea submitted", "created_at": "2026-06-08T09:00:00Z" }
+  ],
+  "total_ideas": 342,
+  "total_votes": 1250,
+  "total_users": 89
+}
+```
+
+---
+
+## List all ideas (admin view)
+
+<api-endpoint method="GET" path="/admin/ideas" />
+
+Returns every idea in the system, including those still pending moderation, sorted newest first.
+
+**Response** `200 OK` — same shape as the public idea list.
+
+---
+
+## Update idea status
+
+<api-endpoint method="PATCH" path="/admin/ideas/{idea_id}/status" />
+
+Changes the stage of an idea (e.g., from `pending` to `under_review` or `shipped`). Optionally leaves an internal note.
+
+**Request body**
+
+```json
+{
+  "status": "under_review",
+  "note": "Reviewed in Q2 planning."
+}
+```
+
+**Response** `200 OK` — returns the updated IdeaResponse.
+
+---
+
+## Approve an idea
+
+<api-endpoint method="POST" path="/admin/ideas/{idea_id}/approve" />
+
+Fast-tracks an idea to an approved/public state without needing a full status object.
+
+**Response** `200 OK` — returns the updated IdeaResponse.
+
+---
+
+## Reject an idea
+
+<api-endpoint method="POST" path="/admin/ideas/{idea_id}/reject" />
+
+Removes the idea from public view. You can provide a reason for recordkeeping.
+
+**Request body**
+
+```json
+{
+  "reason": "Duplicate of an existing request."
+}
+```
+
+**Response** `200 OK`
+
+```json
+{ "rejected": true }
+```
+
+---
+
+## Merge ideas
+
+<api-endpoint method="POST" path="/admin/ideas/{idea_id}/merge" />
+
+Combines multiple similar ideas into one primary idea. All votes and comments are redirected to the primary idea.
+
+**Request body**
+
+```json
+{
+  "primary_idea_id": "main-idea-uuid...",
+  "secondary_idea_ids": ["dup-1-uuid...", "dup-2-uuid..."]
+}
+```
+
+**Response** `200 OK` — returns the primary IdeaResponse.
+
+## Idea statuses reference
+
+| Status | Description |
+|---|---|
+| `pending` | Submitted, awaiting moderation or review |
+| `under_review` | Being evaluated by the team |
+| `planned` | Accepted and scheduled for development |
+| `in_progress` | Currently being built |
+| `shipped` | Released to production |
+| `rejected` | Declined or closed |

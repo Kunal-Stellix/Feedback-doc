@@ -1,0 +1,83 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Feedback Docs",
+  "colors": {
+    "primary": "#6C5CE7",
+    "light": "#A29BFE",
+    "dark": "#4834D4"
+  },
+  "favicon": "/favicon.svg",
+  "navigation": {
+    "groups": [
+      {
+        "group": "Welcome",
+        "pages": [
+          "welcome/welcome-to-feedback",
+          "welcome/why-not-just-a-form",
+          "welcome/who-uses-this"
+        ]
+      },
+      {
+        "group": "How It Works",
+        "pages": [
+          "how-it-works/how-ideas-flow",
+          "how-it-works/statuses-explained",
+          "how-it-works/feedback-loop"
+        ]
+      },
+      {
+        "group": "Guides",
+        "pages": [
+          "guides/submit-and-vote",
+          "guides/log-private-feedback",
+          "guides/merge-duplicates"
+        ]
+      },
+      {
+        "group": "Features",
+        "pages": [
+          "features/roadmap-and-content",
+          "features/webhook-events"
+        ]
+      },
+      {
+        "group": "API Reference",
+        "pages": [
+          {
+            "group": "Auth & Setup",
+            "pages": [
+              "api-reference/introduction",
+              "api-reference/auth"
+            ]
+          },
+          {
+            "group": "Public Resources",
+            "pages": [
+              "api-reference/ideas",
+              "api-reference/roadmap",
+              "api-reference/categories",
+              "api-reference/changelog",
+              "api-reference/comments",
+              "api-reference/votes",
+              "api-reference/notifications",
+              "api-reference/webhooks"
+            ]
+          },
+          {
+            "group": "Admin & Settings",
+            "pages": [
+              "api-reference/api-keys",
+              "api-reference/portal-settings",
+              "api-reference/administration"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "logo": {
+    "light": "/logo-light.svg",
+    "dark": "/logo-dark.svg"
+  }
+}

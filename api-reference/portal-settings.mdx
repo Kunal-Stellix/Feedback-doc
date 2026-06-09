@@ -1,0 +1,50 @@
+---
+title: "Portal Settings & Branding"
+description: "Control the look, feel, and behaviour of your public feedback portal."
+icon: "settings"
+---
+
+## Get portal settings
+
+<api-endpoint method="GET" path="/admin/settings" />
+
+Returns the current configuration: portal name, brand color, logo, custom domain, and whether moderation is enabled.
+
+**Response** `200 OK`
+
+```json
+{
+  "id": "settings-uuid...",
+  "portal_name": "Acme Feedback",
+  "logo_url": "https://cdn.example.com/logo.png",
+  "brand_color": "#3b82f6",
+  "custom_domain": "feedback.acme.com",
+  "domain_verified": true,
+  "moderation_on": true,
+  "updated_at": "2026-06-08T08:00:00Z"
+}
+```
+
+---
+
+## Update portal settings
+
+<api-endpoint method="PATCH" path="/admin/settings" />
+
+Applies branding and policy changes. Only fields you send are updated (partial update).
+
+**Request body**
+
+```json
+{
+  "portal_name": "Acme Ideas",
+  "brand_color": "#10b981",
+  "moderation_on": false
+}
+```
+
+**Response** `200 OK` — returns the updated PortalSettingsResponse.
+
+<Note>
+  Setting `moderation_on: false` means all new idea submissions are auto-approved and immediately visible to the public.
+</Note>

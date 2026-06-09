@@ -1,0 +1,81 @@
+---
+title: "Comments"
+description: "Users can discuss ideas in threaded conversations with nested replies."
+icon: "message-circle"
+---
+
+## List comments on an idea
+
+<api-endpoint method="GET" path="/ideas/{idea_id}/comments" />
+
+Fetches all comments for a given idea, paginated. Returns top-level comments and their nested replies.
+
+**Query parameters**
+
+| Parameter | Type | Description |
+|---|---|---|
+| `page` | integer | Page number (default: 1) |
+| `page_size` | integer | Results per page (default: 20) |
+
+**Response** `200 OK`
+
+```json
+{
+  "items": [
+    {
+      "id": "comment-uuid...",
+      "body": "Great idea! This would help a lot.",
+      "author": {
+        "id": "user-uuid...",
+        "name": "John Smith",
+        "avatar_url": null,
+        "role": "user"
+      },
+      "parent_id": null,
+      "replies": [],
+      "created_at": "2026-06-02T09:15:00Z",
+      "updated_at": "2026-06-02T09:15:00Z"
+    }
+  ],
+  "total": 7,
+  "page": 1,
+  "has_next": false
+}
+```
+
+---
+
+## Post a comment
+
+<api-endpoint method="POST" path="/ideas/{idea_id}/comments" />
+
+Adds a new comment or reply. If `parent_id` is provided, it becomes a threaded reply to another comment.
+
+**Request body**
+
+```json
+{
+  "body": "I agree, dark mode is essential!",
+  "parent_id": null
+}
+```
+
+<Tip>
+  To post a reply, set `parent_id` to the UUID of the comment you're replying to.
+</Tip>
+
+**Response** `201 Created` — returns the full CommentResponse.
+
+---
+
+## Delete a comment
+
+<api-endpoint method="DELETE" path="/ideas/{idea_id}/comments/{comment_id}" />
+
+Removes a comment permanently. Only the comment's author or an admin can delete it.
+
+**Response** `200 OK`
+
+```json
+{ "deleted": true }
+```

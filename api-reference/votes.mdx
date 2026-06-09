@@ -1,0 +1,53 @@
+---
+title: "Votes & Follows"
+description: "Voting helps surface the most wanted features. Each user gets one vote per idea."
+icon: "thumbs-up"
+---
+
+## Vote on an idea
+
+<api-endpoint method="POST" path="/ideas/{idea_id}/vote" />
+
+Toggles a vote — adds if not present, removes if already present. Records the user's vote and updates the total vote count.
+
+**Response** `200 OK`
+
+```json
+{
+  "voted": true,
+  "vote_count": 43
+}
+```
+
+---
+
+## Remove my vote
+
+<api-endpoint method="DELETE" path="/ideas/{idea_id}/vote" />
+
+Explicitly removes the current user's vote. Deletes the vote record and decrements the count.
+
+**Response** `200 OK`
+
+```json
+{
+  "voted": false,
+  "vote_count": 42
+}
+```
+
+---
+
+## Check my vote status
+
+<api-endpoint method="GET" path="/ideas/{idea_id}/vote" />
+
+Tells you whether the logged-in user has voted on a specific idea. Returns a simple boolean flag.
+
+**Response** `200 OK`
+
+```json
+{
+  "voted": true
+}
+```

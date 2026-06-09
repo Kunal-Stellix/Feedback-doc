@@ -1,0 +1,74 @@
+---
+title: "Roadmap & Content"
+description: "Manage roadmap items, announcements, changelog entries, and comments — each with their own status flows."
+icon: "map"
+---
+
+Beyond ideas, the platform manages roadmap items, announcements, changelog entries, and comments. Each entity has its own lifecycle and status flow.
+
+## Entity status flows
+
+| Entity | Status flow |
+|---|---|
+| Roadmap item (normal) | `Planned` → `In Progress` → `Shipped` *(auto-creates changelog entry)* |
+| Roadmap item (halted) | `In Progress` → `Paused` → `In Progress` or `Cancelled` |
+| Announcement | `Draft` → `Scheduled` → `Published` → `Archived` |
+| Changelog entry | `Draft` → `Published` → `Archived` |
+| Comment | `Visible` → `Flagged` → `Hidden` → `Deleted` |
+
+## Roadmap items
+
+<Tabs>
+  <Tab title="Normal flow">
+    1. PM promotes an idea to **Planned**.\
+    2. Engineering picks it up → status moves to **In Progress**.\
+    3. Feature ships → status moves to **Shipped**.\
+    4. Platform auto-creates a changelog entry pre-populated with the roadmap item's details.\
+    5. PM reviews and publishes the changelog entry.
+  </Tab>
+  <Tab title="Halted flow">
+    1. Item is **In Progress** but deprioritized → moves to **Paused**.\
+    2. PM decides to resume → moves back to **In Progress**.\
+    3. Or PM decides to cancel → moves to **Cancelled**.\
+    Neither `Paused` nor `Cancelled` triggers a notification to voters.
+  </Tab>
+</Tabs>
+
+<Tip>
+  Shipping a roadmap item triggers the `roadmap_item.status_changed` webhook event and notifies all idea voters via email.
+</Tip>
+
+## Announcements
+
+Announcements let you communicate product news that isn't tied to a specific idea or roadmap item.
+
+- **Draft** — compose the announcement, add images, and preview it
+- **Scheduled** — set a publish date; the platform handles distribution automatically
+- **Published** — live and visible to all portal visitors
+- **Archived** — removed from the main feed but accessible via a direct link
+
+## Changelog entries
+
+Changelog entries keep your users informed about what's new. They can be created two ways:
+
+<CardGroup cols={2}>
+  <Card title="Auto-created from roadmap" icon="bolt">
+    When a roadmap item ships, a changelog entry is automatically created with the item's title and description. The PM reviews and publishes it.
+  </Card>
+  <Card title="Manually created" icon="pencil">
+    PM creates a standalone entry at any time — not tied to a roadmap item. Useful for patches, small fixes, or general updates.
+  </Card>
+</CardGroup>
+
+Once published, changelog entries trigger the `changelog.published` webhook and appear on the public changelog page.
+
+## Comments
+
+The comment moderation flow ensures admins can act on inappropriate content without losing the audit trail:
+
+| Status | Meaning |
+|---|---|
+| `Visible` | Default — visible to everyone |
+| `Flagged` | Reported by a user or auto-detected — pending admin review |
+| `Hidden` | Admin has hidden it from public view — still visible internally |
+| `Deleted` | Permanently removed — preserved in audit log only |

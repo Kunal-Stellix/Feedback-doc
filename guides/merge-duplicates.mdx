@@ -1,0 +1,51 @@
+---
+title: "Merge Duplicate Ideas"
+description: "Consolidate duplicate submissions so votes and followers aren't fragmented across similar requests."
+icon: "code-merge"
+---
+
+Duplicate ideas split votes and dilute demand signals. The merge tool consolidates them so the PM sees the true weight of a request.
+
+## When to merge
+
+- Two or more ideas request the same feature with different wording
+- A support request overlaps with an existing public idea
+- A private idea captures the same need as a public one
+
+## Merge flow
+
+<Steps>
+  <Step title="Identify duplicates">
+    Spot two similar ideas in the review queue, or locate them using the Merge tool's search. The real-time duplicate detector also flags potential matches when a user submits a new idea.
+  </Step>
+  <Step title="Select source and target">
+    Designate one idea as the **Source** (the one to be absorbed) and one as the **Target** (the one to keep). The target is usually the idea with more votes or the one that was submitted first.
+  </Step>
+  <Step title="Votes and followers transfer">
+    The system moves all votes and followers from the Source idea to the Target idea automatically. The Target's vote count increases immediately.
+  </Step>
+  <Step title="Source is marked Merged">
+    The source idea's status becomes `Merged` and displays a redirect link pointing to the Target.
+  </Step>
+  <Step title="Submitter is notified">
+    The original submitter of the source idea receives a notification with the redirect link to the surviving idea.
+  </Step>
+</Steps>
+
+<Tip>
+  After a merge, the Target idea's vote count increases immediately. This can trigger re-ranking on the roadmap priority view.
+</Tip>
+
+## What transfers vs. what doesn't
+
+| Data | Transfers to target? | Why |
+|---|---|---|
+| Votes | **Yes** | Demand signal should be consolidated |
+| Followers | **Yes** | People who cared should stay in the loop |
+| Internal notes | **No** | Stays on source for audit trail |
+| Submitter identity | **No** | Source retains its own submitter |
+| Comments | **No** | Stays on source to preserve context |
+
+<Warning>
+  Merging is irreversible. Once a source idea is merged, it cannot be unmerged. Double-check your source and target before confirming.
+</Warning>

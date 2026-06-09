@@ -1,0 +1,48 @@
+---
+title: "API Overview"
+description: "The Product Feedback API powers a feature request platform — letting users submit ideas, vote, comment, and follow your roadmap."
+icon: "rocket"
+---
+
+Think of it as the engine behind a suggestion box that scales — from public feature voting to internal team prioritization.
+
+## Authentication
+
+Most endpoints require the user to be logged in. The API uses **Bearer tokens (JWT)** passed in the `Authorization` header.
+
+```http
+Authorization: Bearer {access_token}
+```
+
+### How it works
+
+<Steps>
+  <Step title="Register or log in">
+    A user registers or logs in via `/auth/register` or `/auth/login`.
+  </Step>
+  <Step title="Receive tokens">
+    The API returns an `access_token` (short-lived) and a `refresh_token` (long-lived).
+  </Step>
+  <Step title="Send with every request">
+    Include the `access_token` in the `Authorization` header on every request.
+  </Step>
+  <Step title="Refresh when expired">
+    When the `access_token` expires, use `POST /auth/refresh` to get a new one without asking the user to log in again.
+  </Step>
+</Steps>
+
+## Access levels
+
+| Level | Who | What they can do |
+|---|---|---|
+| Public | Anyone | Read ideas, categories, roadmap, changelog |
+| Private | Logged-in users | Vote, comment, manage notifications |
+| Admin only | `admin` role | Settings, API keys, webhooks, moderation |
+
+## User roles
+
+| Role | Description |
+|---|---|
+| `user` | Standard community member |
+| `moderator` | Can review and update idea statuses |
+| `admin` | Full access to settings, keys, webhooks, and all moderation tools |

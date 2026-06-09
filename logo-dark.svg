@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 32" fill="none">
+  <rect width="28" height="28" x="2" y="2" rx="6" fill="#A29BFE"/>
+  <path d="M21 9H11a1.5 1.5 0 00-1.5 1.5v7a1.5 1.5 0 001.5 1.5h1.5v3l3-3h5.5A1.5 1.5 0 0023.5 18V10.5A1.5 1.5 0 0022 9z" fill="#0f0f23"/>
+  <text x="38" y="23" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#ffffff">Feedback Docs</text>
+</svg>

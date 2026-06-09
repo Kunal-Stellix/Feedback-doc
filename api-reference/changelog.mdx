@@ -1,0 +1,139 @@
+---
+title: "Changelog"
+description: "Keep your users informed about product updates with typed changelog entries."
+icon: "newspaper"
+---
+
+## List changelog entries
+
+<api-endpoint method="GET" path="/changelog" />
+
+Returns published updates. Filterable by entry type. This is a public endpoint.
+
+**Query parameters**
+
+| Parameter | Type | Description |
+|---|---|---|
+| `type` | string | Filter by `feature`, `improvement`, or `fix` |
+| `page` | integer | Page number (default: 1) |
+| `page_size` | integer | Results per page (default: 10) |
+
+**Response** `200 OK`
+
+```json
+{
+  "items": [
+    {
+      "id": "changelog-uuid...",
+      "title": "Dark Mode is Here",
+      "body": "You asked, we built it. Dark mode is now live.",
+      "type": "feature",
+      "linked_idea": {
+        "id": "idea-uuid...",
+        "title": "Dark Mode Support",
+        "vote_count": 42,
+        "status": "shipped"
+      },
+      "published_at": "2026-06-08T08:00:00Z"
+    }
+  ],
+  "total": 12,
+  "page": 1,
+  "has_next": false
+}
+```
+
+---
+
+## Get a single changelog entry
+
+<api-endpoint method="GET" path="/changelog/{entry_id}" />
+
+Returns one specific changelog entry.
+
+**Response** `200 OK` — same shape as an item in the List response.
+
+---
+
+## Create a changelog entry
+
+<api-endpoint method="POST" path="/admin/changelog" />
+
+Publishes a new update to the changelog. Optionally links it to an existing idea.
+
+**Request body**
+
+```json
+{
+  "title": "Dark Mode is Here",
+  "body": "You asked, we built it. Dark mode is now live.",
+  "type": "feature",
+  "linked_idea_id": "idea-uuid..."
+}
+```
+
+**Response** `201 Created`
+
+```json
+{
+  "id": "changelog-uuid...",
+  "title": "Dark Mode is Here",
+  "body": "You asked, we built it. Dark mode is now live.",
+  "type": "feature",
+  "linked_idea": {
+    "id": "idea-uuid...",
+    "title": "Dark Mode Support",
+    "vote_count": 42,
+    "status": "shipped"
+  },
+  "published_at": "2026-06-08T08:00:00Z"
+}
+```
+
+---
+
+## Subscribe to changelog
+
+<api-endpoint method="POST" path="/changelog/subscribe" />
+
+Lets visitors sign up for email updates. Adds the email to the changelog mailing list.
+
+**Request body**
+
+```json
+{
+  "email": "jane@example.com"
+}
+```
+
+**Response** `200 OK`
+
+```json
+{ "subscribed": true }
+```
+
+---
+
+## Unsubscribe from changelog
+
+<api-endpoint method="DELETE" path="/changelog/unsubscribe" />
+
+Removes an email from the mailing list using a secure unsubscribe token.
+
+```http
+DELETE /changelog/unsubscribe?token=abc123...
+```
+
+**Response** `200 OK`
+
+```json
+{ "unsubscribed": true }
+```
+
+## Changelog entry types
+
+| Type | Use for |
+|---|---|
+| `feature` | New functionality added |
+| `improvement` | Enhancements to existing features |
+| `fix` | Bug fixes and patches |

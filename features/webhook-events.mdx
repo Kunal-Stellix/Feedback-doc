@@ -1,0 +1,94 @@
+---
+title: "Webhook Events"
+description: "The platform is API-first. These webhook events fire on key state changes so your integrations stay in sync."
+icon: "webhook"
+---
+
+The platform ships with a full FastAPI backend and webhooks available from day one — no additional setup required.
+
+<Tip>
+  Webhooks fire on all state changes regardless of whether the change was made via the UI, API, or a third-party integration.
+</Tip>
+
+## Event reference
+
+| Event | Trigger | Payload includes |
+|---|---|---|
+| `idea.created` | New idea submitted via any channel | idea id, title, status, author |
+| `idea.status_changed` | Status updated by an admin or PM | idea id, title, previous status, new status |
+| `idea.merged` | Idea absorbed into another idea | source id, target id, transferred votes |
+| `idea.voted` | User upvotes an idea | idea id, user id, new vote count |
+| `roadmap_item.status_changed` | Roadmap item changes status | item id, title, previous status, new status |
+| `announcement.published` | Announcement goes live | announcement id, title |
+| `changelog.published` | New changelog entry published | entry id, title, type |
+
+## Example payload
+
+All webhook payloads follow a consistent structure:
+
+```json
+{
+  "event": "idea.status_changed",
+  "timestamp": "2026-06-01T10:32:00Z",
+  "data": {
+    "id": "idea_abc123",
+    "title": "Dark mode support",
+    "previous_status": "planned",
+    "new_status": "in_progress",
+    "updated_by": "user_pm001"
+  }
+}
+```
+
+## Setting up webhooks
+
+<Steps>
+  <Step title="Navigate to Settings → Webhooks">
+    Only admins can manage webhooks. Go to the admin panel and open the Webhooks section.
+  </Step>
+  <Step title="Add your endpoint URL">
+    Enter the URL where you want to receive POST requests. Make sure your server is configured to accept incoming requests.
+  </Step>
+  <Step title="Select events">
+    Choose which events you want to listen to. You can start with a subset and add more later.
+  </Step>
+  <Step title="Set a secret">
+    Provide a webhook secret. The platform uses it to sign every payload so you can verify the request came from us.
+  </Step>
+</Steps>
+
+See the [Webhooks & Events API](/api-reference/webhooks) for the full programmatic management endpoints.
+
+## Delivery and retries
+
+<CardGroup cols={3}>
+  <Card title="HTTP POST" icon="paper-plane">
+    Webhooks are delivered via HTTP POST to your configured endpoint with a JSON payload.
+  </Card>
+  <Card title="Exponential backoff" icon="clock-rotate-left">
+    Failed deliveries (non-2xx response) are retried with exponential backoff up to 5 times over 24 hours.
+  </Card>
+  <Card title="Delivery log" icon="list-check">
+    Every fired event is logged in the admin panel with its delivery status, response code, and retry history.
+  </Card>
+</CardGroup>
+
+## Verifying webhook signatures
+
+Every webhook request includes an `X-Webhook-Signature` header containing a HMAC-SHA256 hash of the payload signed with your webhook secret.
+
+```python
+import hmac, hashlib
+
+def verify_signature(payload, signature, secret):
+    expected = hmac.new(
+        secret.encode("utf-8"),
+        payload.encode("utf-8"),
+        hashlib.sha256
+    ).hexdigest()
+    return hmac.compare_digest(expected, signature)
+```
+
+<Warning>
+  Always verify the signature before processing a webhook payload. Never trust incoming requests without validation.
+</Warning>

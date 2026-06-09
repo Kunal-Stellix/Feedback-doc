@@ -1,0 +1,139 @@
+---
+title: "Auth & Accounts"
+description: "Register, log in, refresh sessions, and manage user profiles."
+icon: "lock"
+---
+
+## Register a new account
+
+<api-endpoint method="POST" path="/auth/register" />
+
+Creates a brand new user account. Validates the email, hashes the password, and creates the user. Returns the user profile plus fresh tokens.
+
+**Request body**
+
+```json
+{
+  "name": "Jane Doe",
+  "email": "jane@example.com",
+  "password": "securePass123"
+}
+```
+
+**Response** `201 Created`
+
+```json
+{
+  "user": {
+    "id": "a1b2c3d4...",
+    "name": "Jane Doe",
+    "email": "jane@example.com",
+    "role": "user",
+    "avatar_url": null,
+    "created_at": "2026-06-08T10:00:00Z"
+  },
+  "tokens": {
+    "access_token": "eyJhbGc...",
+    "refresh_token": "dGhpcyBpcyBh...",
+    "token_type": "bearer"
+  }
+}
+```
+
+---
+
+## Log in
+
+<api-endpoint method="POST" path="/auth/login" />
+
+Exchanges email and password for tokens. Checks the password against the stored hash — if correct, returns the user profile and tokens.
+
+**Request body**
+
+```json
+{
+  "email": "jane@example.com",
+  "password": "securePass123"
+}
+```
+
+**Response** `200 OK` — same shape as Register.
+
+---
+
+## Refresh session
+
+<api-endpoint method="POST" path="/auth/refresh" />
+
+Gets a new access token without re-entering a password. Verifies the `refresh_token` and issues a new `access_token` and `refresh_token`.
+
+**Request body**
+
+```json
+{
+  "refresh_token": "dGhpcyBpcyBh..."
+}
+```
+
+**Response** `200 OK`
+
+```json
+{
+  "access_token": "eyJhbGciOiJI...",
+  "refresh_token": "bmV3UmVmcmVzaC4u.",
+  "token_type": "bearer"
+}
+```
+
+---
+
+## Single sign-on (SSO)
+
+<api-endpoint method="POST" path="/auth/sso" />
+
+Allows login via an external identity provider. Verifies a third-party JWT (e.g., from Google Workspace or Okta) and logs the user in — or creates an account if they are new.
+
+**Request body**
+
+```json
+{
+  "token": "eyJ0eXAiOiJKV1Qi..."
+}
+```
+
+**Response** `200 OK` — same shape as Register / Login.
+
+---
+
+## Get my profile
+
+<api-endpoint method="GET" path="/auth/me" />
+
+Returns the currently logged-in user's details. Looks up the user attached to the bearer token and returns their profile.
+
+**Response** `200 OK`
+
+```json
+{
+  "id": "a1b2c3d4...",
+  "name": "Jane Doe",
+  "email": "jane@example.com",
+  "role": "user",
+  "avatar_url": null,
+  "created_at": "2026-06-08T10:00:00Z"
+}
+```
+
+---
+
+## Log out
+
+<api-endpoint method="POST" path="/auth/logout" />
+
+Invalidates the current session on the server. Revokes the active tokens so they can no longer be used.
+
+**Response** `200 OK`
+
+```json
+{ "success": true }
+```

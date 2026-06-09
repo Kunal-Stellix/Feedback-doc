@@ -1,0 +1,51 @@
+---
+title: "How Ideas Flow"
+description: "Every idea follows a structured lifecycle from submission through to shipment and notification."
+icon: "route"
+---
+
+Every idea in the platform moves through a clear, predictable lifecycle. Understanding this flow is the key to understanding the entire product.
+
+## The lifecycle at a glance
+
+```
+Pending → Under Review → Planned → In Progress → Shipped
+```
+
+<Note>
+  From any status, an idea can also transition to **Declined**, **Archived**, or **Merged**. These are exit paths — once taken, the idea leaves the primary flow.
+</Note>
+
+## What happens at each stage
+
+<Steps>
+  <Step title="Pending">
+    A user submits an idea. It enters the review queue and is not yet visible to the public. Admins moderate and decide whether to approve it.
+  </Step>
+  <Step title="Under Review">
+    The team is actively evaluating the idea. It becomes publicly visible, and the original submitter is notified that their idea is being considered.
+  </Step>
+  <Step title="Planned">
+    The idea has been accepted and added to the roadmap. All followers are notified — this signals commitment to the user base.
+  </Step>
+  <Step title="In Progress">
+    Engineering is actively building it. Followers receive another notification, reinforcing that progress is happening.
+  </Step>
+  <Step title="Shipped">
+    The feature is live. All voters are notified, and a changelog entry is (optionally) auto-created. The loop is closed.
+  </Step>
+</Steps>
+
+## Exit statuses
+
+Not every idea makes it through the full lifecycle. At any point, an admin can:
+
+| Status | What it means | Visible publicly? |
+|---|---|---|
+| **Declined** | The team will not build it — a reason is shown publicly | Yes |
+| **Archived** | Hidden from public view, preserved internally for audit | No |
+| **Merged** | Absorbed into another idea; submitter and voters are redirected | No (redirect link shown) |
+
+<Tip>
+  Merging is the most common exit path for duplicates. See [Merge Duplicates](/guides/merge-duplicates) for the full walkthrough.
+</Tip>

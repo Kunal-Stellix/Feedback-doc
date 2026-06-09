@@ -1,0 +1,61 @@
+---
+title: "Notifications"
+description: "Users receive notifications when their ideas are updated, commented on, or approved."
+icon: "bell"
+---
+
+## Get my notifications
+
+<api-endpoint method="GET" path="/notifications" />
+
+Returns the current user's notification inbox, paginated.
+
+**Query parameters**
+
+| Parameter | Type | Description |
+|---|---|---|
+| `page` | integer | Page number (default: 1) |
+| `page_size` | integer | Results per page (default: 20) |
+
+**Response** `200 OK`
+
+```json
+{
+  "items": [
+    {
+      "id": "notif-uuid...",
+      "type": "idea_approved",
+      "title": "Your idea was approved",
+      "body": "'Dark Mode Support' is now visible to the public.",
+      "link": "/ideas/idea-uuid...",
+      "is_read": false,
+      "created_at": "2026-06-08T11:00:00Z"
+    }
+  ],
+  "unread_count": 3
+}
+```
+
+---
+
+## Mark all notifications as read
+
+<api-endpoint method="PATCH" path="/notifications/read-all" />
+
+Clears the unread badge for the user. Marks every notification in the inbox as read.
+
+**Response** `200 OK`
+
+```json
+{ "updated": 3 }
+```
+
+---
+
+## Mark one notification as read
+
+<api-endpoint method="PATCH" path="/notifications/{notification_id}/read" />
+
+Marks a single notification as read.
+
+**Response** `200 OK` — returns the updated NotificationResponse.

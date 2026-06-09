@@ -1,0 +1,60 @@
+---
+title: "The Feedback Loop"
+description: "The full lifecycle — from an approved idea reaching the roadmap all the way to voters being notified when the feature ships."
+icon: "arrows-rotate"
+---
+
+The feedback loop is the core promise of the platform: every user who submits or votes on an idea will hear back when it ships. Here's how that loop completes.
+
+## The full delivery loop
+
+<Steps>
+  <Step title="Promote to roadmap">
+    PM promotes an approved idea to a roadmap item. Status becomes `Planned`. All followers are notified.
+  </Step>
+  <Step title="Start building">
+    Engineering picks it up. Status moves to `In Progress`. All followers are notified again — progress is visible.
+  </Step>
+  <Step title="Ship the feature">
+    Feature ships. Status moves to `Shipped`. All voters are notified — this is the moment the loop closes.
+  </Step>
+  <Step title="Publish the changelog entry">
+    PM creates a changelog entry — auto-populated from the roadmap item — and publishes it. Subscribers to the changelog feed receive it.
+  </Step>
+  <Step title="Close the loop on the original idea">
+    The original idea's status is updated to `Shipped`. A final notification is sent to every voter, completing the feedback loop.
+  </Step>
+</Steps>
+
+<Note>
+  Steps 4 and 5 can happen in either order. The changelog entry can be published before or after the idea status update.
+</Note>
+
+## Who gets notified and when
+
+| Event | Notified | Channel |
+|---|---|---|
+| Idea promoted to `Planned` | All idea followers | In-app notification + email |
+| Status moves to `In Progress` | All idea followers | In-app notification + email |
+| Status moves to `Shipped` | All idea voters | In-app notification + email |
+| Changelog entry published | Changelog subscribers | Email |
+
+## The loop in reverse
+
+What happens when things don't go perfectly:
+
+<AccordionGroup>
+  <Accordion title="An idea is declined">
+    The submitter receives a notification with the reason. The idea's status is set to `Declined` and becomes publicly visible with the explanation. No followers or voters are notified — only the submitter.
+  </Accordion>
+  <Accordion title="An idea is archived">
+    The idea is quietly removed from public view. No notifications are sent. The idea is preserved in the admin view for audit purposes.
+  </Accordion>
+  <Accordion title="An idea is merged into another">
+    The submitter and all voters on the **source** idea receive a notification with a redirect link to the **target** idea. All votes and followers transfer automatically.
+  </Accordion>
+</AccordionGroup>
+
+<Tip>
+  The feedback loop is what turns a "black hole" suggestion box into a trust-building system. Every status change is a touchpoint with your customers.
+</Tip>

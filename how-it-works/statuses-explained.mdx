@@ -1,0 +1,58 @@
+---
+title: "Idea Statuses Explained"
+description: "Each status controls visibility, notifications, and what action a team member should take next."
+icon: "list-check"
+---
+
+Statuses are the backbone of the feedback loop. They determine who can see an idea, who gets notified, and what happens next.
+
+## Full status reference
+
+| Status | Meaning | Public? | Who gets notified |
+|---|---|---|---|
+| `Pending` | Submitted; awaiting admin review | No | — |
+| `Under Review` | Team is evaluating it | Yes | Submitter only |
+| `Planned` | Officially on the roadmap | Yes | All followers |
+| `In Progress` | Being built | Yes | All followers |
+| `Shipped` | Feature is live | Yes | All voters |
+| `Declined` | Will not be built (reason shown) | Yes | Submitter only |
+| `Archived` | Hidden, preserved internally | No | — |
+| `Merged` | Absorbed into another idea | No | Submitter + voters (redirect) |
+
+## Key distinctions
+
+<AccordionGroup>
+  <Accordion title="Followers vs. voters — what's the difference?">
+    **Followers** are users who opted in to track an idea. They receive notifications at `Planned` and `In Progress` stages — these are the people who *care* about progress.
+
+    **Voters** are users who upvoted an idea. They receive the final `Shipped` notification when the feature goes live — these are the people who *want* the feature.
+
+    A user can be both a follower and a voter. In fact, submitters are automatically followed on their own idea.
+  </Accordion>
+  <Accordion title="Declined vs. Archived — when to use which?">
+    Use **Declined** when you want to publicly communicate that the team won't build something. The decline reason is visible to the submitter and the community.
+
+    Use **Archived** when you want to quietly remove an idea from public view. The idea is preserved for your internal audit trail, but no public explanation is shown.
+  </Accordion>
+  <Accordion title="What happens when an idea is merged?">
+    All votes and followers transfer from the source idea to the target. The source idea displays a redirect link pointing to the surviving idea. Both the submitter and original voters are notified with the redirect.
+  </Accordion>
+</AccordionGroup>
+
+## Notification timeline
+
+<CardGroup cols={3}>
+  <Card title="Submitter" icon="user">
+    - Notified when their idea reaches **Under Review**.\
+    - Notified if the idea is **Declined** (with reason).\
+    - Notified if the idea is **Merged** (with redirect link).
+  </Card>
+  <Card title="Followers" icon="eye">
+    - Notified when the idea reaches **Planned**.\
+    - Notified when the idea reaches **In Progress**.
+  </Card>
+  <Card title="Voters" icon="thumbs-up">
+    - Notified when the idea reaches **Shipped**.\
+    - This is the final notification that closes the feedback loop.
+  </Card>
+</CardGroup>
